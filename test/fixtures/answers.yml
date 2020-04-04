@@ -3,7 +3,9 @@
 one:
   option: MyString
   group: MyString
+  question: one
 
 two:
   option: MyString
   group: MyString
+  question: two
