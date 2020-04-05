@@ -1,6 +1,6 @@
 module Api
   module V1
-    class AnswerController < ApplicationController
+    class AnswersController < ApplicationController
       def index
         @answers = Answer.order('created_at ASC')
         render json: { status: 'SUCCESS',
@@ -61,7 +61,7 @@ module Api
       private
 
       def answer_params
-        params.require(:answer).permit(:option, :group)
+        params.require(:answer).permit(:option, :group, :question)
       end
 
     end
