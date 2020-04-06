@@ -5,7 +5,7 @@ module Api
         @questions = Question.order('created_at ASC')
         render json: { status: 'SUCCESS',
                        message: 'Loaded questions',
-                       data: @questions }
+                       questions: @questions }
       end
 
       def show
@@ -56,6 +56,39 @@ module Api
         render json: { status: 'SUCCESS',
                        message: 'Deleted question',
                        data: @question }
+      end
+
+      def answers_by_question
+        @question = Question.find(params[:question_id])
+        @answers = Answer.where(question: @question)
+        render json: { status: 'SUCCESS',
+                       message: 'Loaded answers by question',
+                       question: @question, answers: @answers }
+      end
+
+      def all_answers
+        questions = []
+        answers = []
+        questionnaire = []
+        questionnaire_json = { 'questions' => questions }
+        @questions = Question.order('created_at ASC')
+        @answers = Answer.order('created_at ASC')
+        index = 0
+        @answers.each do |key, value|
+          @question = Question.find(key.question_id)
+          answers.push(key)
+          index += 1
+          if index == 2
+            question_json = { id: @question.id,
+                              text: @question.text,
+                              answers: answers }
+            questionnaire_json['questions'].push(question_json)
+            index = 0
+            answers = []
+          end
+        end
+        questionnaire.push(questionnaire_json)
+        render json: { questionnaire: questionnaire_json }
       end
 
       private

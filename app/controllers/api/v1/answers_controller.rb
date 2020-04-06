@@ -5,7 +5,7 @@ module Api
         @answers = Answer.order('created_at ASC')
         render json: { status: 'SUCCESS',
                        message: 'Loaded answers',
-                       data: @answers }
+                       answers: @answers }
       end
 
       def show
@@ -57,6 +57,7 @@ module Api
                        message: 'Deleted answer',
                        data: @answer }
       end
+
 
       private
 
