@@ -3,7 +3,12 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :answers
-      resources :questions
+      resources :questions do
+        get '/answers_by_question', to: 'questions#answers_by_question'
+      end
     end
   end
+
+  get '/api/v1/questions/all/answers', to: 'api/v1/questions#all_answers'
+
 end
