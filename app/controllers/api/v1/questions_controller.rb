@@ -72,13 +72,14 @@ module Api
         questionnaire = []
         questionnaire_json = { 'questions' => questions }
         @questions = Question.order('created_at ASC')
-        @answers = Answer.order('created_at ASC')
+        @answers = Answer.order('category')
         index = 0
         @answers.each do |key, value|
           @question = Question.find(key.question_id)
+          @answers_length = Answer.where(:question_id => key.question_id).length
           answers.push(key)
           index += 1
-          if index == 2
+          if index == @answers_length
             question_json = { id: @question.id,
                               text: @question.text,
                               answers: answers }
