@@ -29,11 +29,11 @@ module Api
         if @question.save
           render json: { status: 'SUCCESS',
                          message: 'Saved question',
-                         data: @answer }
+                         data: @question }
         else
           render json: { status: 'FAILED',
                          message: 'Question not saved',
-                         data: @answer }
+                         data: @question }
         end
       end
 
